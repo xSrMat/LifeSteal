@@ -1,0 +1,12 @@
+name: LifeSteal
+version: '1.0-SNAPSHOT'
+main: dev.zsrmat.lifeSteal.LifeSteal
+api-version: '1.21'
+authors: [ zsrmat ]
+description: A plugin that gives you 3 lives, if you lose them you get banned, if you kill you gain more lives.
+commands:
+  lifesteal:
+    description: Muestra tus vidas o las de otro jugador
+    aliases: [ls]
+    usage: /lifesteal [jugador]
+

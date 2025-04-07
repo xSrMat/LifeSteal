@@ -1,0 +1,21 @@
+# basic configs
+initial-lives: 3
+max-lives: 20
+
+# messages
+messages:
+  welcome: "§6§lLifeSteal §r§eWelcome! You start with §a%lives% lives§e."
+  life-lost: "§cYou have lost a life! §eRemaining lives: §a%lives%"
+  life-warning: "§eBe careful! You have §a%lives% lives§e."
+  life-gained: "§a+1 life! §eYou now have: §2%lives% lives§e."
+  max-lives: "§aYou have reached the maximum number of lives!"
+  ban-message: "You have lost all your lives!"
+  mob-death: "§cYou have been killed by a mob!"
+  check-self: "§eYour lives: §a%lives%"
+  check-other: "§eLives of %player%: §a%lives%"
+  player-not-found: "§cPlayer not found!"
+  no-permission: "§cYou do not have permission for this!"
+  lives-added: "§a%d lives have been added to %player%."
+  lives-removed: "§c%d lives have been removed from %player%."
+  life-gained-title: "§l§aLIFE +1"
+  life-gained-subtitle: "§7Total: %lives%"
