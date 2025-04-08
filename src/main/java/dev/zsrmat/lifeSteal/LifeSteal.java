@@ -1,6 +1,7 @@
 package dev.zsrmat.lifeSteal;
 
 import dev.zsrmat.lifeSteal.commands.LifeStealCommand;
+import dev.zsrmat.lifeSteal.LifeStealExpansion;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -43,6 +44,13 @@ public final class LifeSteal extends JavaPlugin implements Listener {
 
         getServer().getPluginManager().registerEvents(this, this);
         getCommand("lifesteal").setExecutor(new LifeStealCommand(this));
+
+        // Registrar PlaceholderAPI si está presente
+        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+            new LifeStealExpansion(this).register();
+            getLogger().info("PlaceholderAPI integrated correctly!");
+        }
+
         getLogger().info("LifeSteal activado!");
     }
 
@@ -105,13 +113,9 @@ public final class LifeSteal extends JavaPlugin implements Listener {
         Player killer = victim.getKiller();
 
         if (killer != null && !victim.equals(killer)) {
-            // Manejar víctima cuando es matada por otro jugador
             handleVictim(victim);
-
-            // Manejar asesino cuando mata a otro jugador
             handleKiller(killer);
         } else {
-            // Manejar víctima cuando es matada por un mob o otro medio
             String mobDeathMessage = config.getString("messages.mob-death", "§cHas sido matado por un mob!");
             if (mobDeathMessage != null) {
                 victim.sendMessage(mobDeathMessage);
@@ -130,7 +134,6 @@ public final class LifeSteal extends JavaPlugin implements Listener {
         playerLives.put(uuid, newLives);
         savePlayerData(uuid);
 
-        // Mensajes a la víctima
         String lossMessage = config.getString("messages.life-lost", "§cHas perdido una vida! §eVidas restantes: §a%lives%");
         if (lossMessage != null) {
             lossMessage = lossMessage.replace("%lives%", String.valueOf(newLives));
@@ -160,7 +163,6 @@ public final class LifeSteal extends JavaPlugin implements Listener {
         playerLives.put(uuid, newLives);
         savePlayerData(uuid);
 
-        // Mensajes al asesino
         String gainMessage = config.getString("messages.life-gained", "§a+1 vida! §eAhora tienes: §2%lives% vidas§e.");
         if (gainMessage != null) {
             gainMessage = gainMessage.replace("%lives%", String.valueOf(newLives));
@@ -169,7 +171,6 @@ public final class LifeSteal extends JavaPlugin implements Listener {
             killer.sendMessage("§a+1 vida! §eAhora tienes: §2" + newLives + "§e vidas§e.");
         }
 
-        // Título configurable
         String title = config.getString("messages.life-gained-title", "§l§aVIDA +1");
         String subtitle = config.getString("messages.life-gained-subtitle", "§7Total: %lives%");
         if (subtitle != null) {
